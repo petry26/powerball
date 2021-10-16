@@ -1,32 +1,37 @@
-const express = require('express')
+const express = require("express")
 
-const { root } = require('../controllers/root')
-const { notFound } = require('../controllers/notfound')
-const { validateReqBody, getScoreData } = require('../controllers/ticket') 
-const { getLoterryResults} = require('../controllers/resultsAPI')
+const { root } = require("../controllers/root")
+const { notFound } = require("../controllers/notfound")
+const { validateReqBody, getScoreData } = require("../controllers/ticket")
+const { getLoterryResults } = require("../controllers/resultsAPI")
 
 // Globals
-const globalConst = require('../utils/globalConst')
+const globalConst = require("../utils/globalConst")
 
-
-const router = express.Router()
+const router = express.Router();
 
 // Routes
-router.get('/', root)
-router.post('/ticket', async function (req,res) {
-    
-    res.setHeader('Content-Type', 'application/json')
+router.get("/", root);
+router.post("/ticket", async function (req, res) {
+  try {
+    validateReqBody(req);
 
-    validateReqBody(req)
-    
-    const loterryResults = await getLoterryResults(globalConst.DATA_GOV_URL) //TODOX rename resultsJson
+    const loterryResults = await getLoterryResults(globalConst.DATA_GOV_URL)
 
-    const ticketsWithScoreData = getScoreData(req.body.drawDate, req.body.lotteryNumbers, loterryResults)
+    const ticketsWithScoreData = getScoreData(
+      req.body.drawDate,
+      req.body.lotteryNumbers,
+      loterryResults
+    )
 
     res.json(ticketsWithScoreData)
-})
+  } catch (error) {
+    console.log(error)
+    res.status(error.status ? error.status : 500).send(error.message ? error.message : 'unknown error')
+  }
+});
 
 // Fall Through Route
-router.use(notFound)
+router.use(notFound);
 
 module.exports = router

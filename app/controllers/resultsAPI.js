@@ -7,7 +7,7 @@ const _getJsonFromAPI = async (url) => {
         return response.data
     })
     .catch((error) => {
-        throw Error(error)
+        throw {status:500, error}
       })
 
     return json
