@@ -2,7 +2,8 @@ const express = require("express")
 
 const { root } = require("../controllers/root")
 const { notFound } = require("../controllers/notfound")
-const { validateReqBody, getScoreData } = require("../controllers/ticket")
+const { getScoreData } = require("../controllers/ticket/ticket")
+const { validateReqBody } = require("../controllers/ticket/ticketValidation")
 const { getLotteryResults } = require("../controllers/lotteryResultsAPI")
 
 // Globals
@@ -14,7 +15,7 @@ const router = express.Router();
 router.get("/", root);
 router.post("/ticket", async function (req, res) {
   try {
-    validateReqBody(req);
+    validateReqBody(req)
 
     const lotteryResults = await getLotteryResults(globalConst.DATA_GOV_URL)
 
