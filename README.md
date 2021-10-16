@@ -28,10 +28,6 @@ To calculate the prize, consult the prize matrix image below:
 - You are free to add packages, tools or improvements to your project as you see fit.
 - We expect you to write the kind of feature you would put into production, including tests and documentation as you see fit.
 
-## Download
-
-To checkout the source, you should clone it from GitHub! Don't fork it or other people will be able to see your solution. Instead clone it and then push it to your own private GitHub repo.
-
 ## Installation
 
 This app requires:
@@ -94,11 +90,7 @@ You should see output like this:
 
 ## Submission
 
-Make your changes on a branch and then make a PR back to your private repo. That makes it easy for us to review your changes in one place. When you're ready for us to review your solution give these users access to your repo:
-
-- [iansu](https://github.com/iansu)
-
-Please also send an email to engineering@neofinancial.com to let us know that your submission is ready for review, and include any notes or instructions.  
+Make your changes and then create a zip file to send back to us. Make sure you don't include `node_modules` in the zip file. Send your solution back to the person who emailed you the original problem.
 
 ## Contact
 
