@@ -79,13 +79,42 @@ const validateReqBody = (req) => {
 
 
 const _getDrawByDate = (drawDate, lotteryResults) => {
-    const luckyDraw = lotteryResults.filter(draw => moment(drawDate).isSame(draw.draw_date, 'day'))
-    return luckyDraw
+    let luckyDraw = lotteryResults.filter(draw => moment(drawDate).isSame(draw.drawDate, 'day'))
+
+    if(!luckyDraw[0])
+        throw Error(500, 'could not get specified draw')
+
+    return luckyDraw[0]
 }
 
-const calculateScore = (reqBody, lotteryResults) => {
 
-    const luckyDraw = _getDrawByDate(reqBody.drawDate, lotteryResults) 
+const _getAmountOfNormalNumberMatch = (normalNumbers, luckyDrawNumbers) => {
+
+    const amount = normalNumbers.filter(function(obj) {
+        return luckyDrawNumbers.indexOf(obj) !== -1
+    })
+
+    return amount.length
+}
+
+const _checkNumbersMatch = (lotteryNumbers, luckyDraw) => {
+
+    lotteryNumbers.forEach((lotteryNumber, index) => {
+        lotteryNumbers[index].powerNumberMatch = (lotteryNumber.powerNumber == luckyDraw.powerNumber)
+            
+        lotteryNumbers[index].normalNumberMatch = _getAmountOfNormalNumberMatch(lotteryNumber.normalNumbers, luckyDraw.normalNumbers)
+    })
+
+    return lotteryNumbers
+}
+
+const calculateScore = (drawDate, lotteryNumbers, lotteryResults) => {
+
+    const luckyDraw = _getDrawByDate(drawDate, lotteryResults) 
+
+    lotteryNumbers = _checkNumbersMatch(lotteryNumbers, luckyDraw)
+
+    console.log(lotteryNumbers)
 
 }
 

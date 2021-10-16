@@ -13,9 +13,28 @@ const _getJsonFromAPI = async (url) => {
     return json
 }
 
+const _sanitizeResults = (loterryResults) => {
+        
+    loterryResults = loterryResults.map(result => {
+        let luckyNumbers = result.winning_numbers.split(' ')
+
+        let sanitizedData = {
+            drawDate: result.draw_date,
+            powerNumber: luckyNumbers.pop(),
+            normalNumbers: luckyNumbers
+        }
+        return sanitizedData
+    })
+
+    return loterryResults
+}
+
 const getLoterryResults = async (url) =>  {
 
-    const loterryResults = await _getJsonFromAPI(url)
+    //TODO: add cache
+    let loterryResults = await _getJsonFromAPI(url)
+
+    loterryResults = _sanitizeResults(loterryResults)
 
     return loterryResults
 }

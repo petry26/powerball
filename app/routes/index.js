@@ -19,7 +19,7 @@ router.post('/ticket', async function (req,res) {
     
     const loterryResults = await getLoterryResults(globalConst.DATA_GOV_URL) //TODOX rename resultsJson
 
-    calculateScore(req.body, loterryResults)
+    calculateScore(req.body.drawDate, req.body.lotteryNumbers, loterryResults)
 
 
 })
