@@ -15,13 +15,15 @@ const router = express.Router()
 router.get('/', root)
 router.post('/ticket', async function (req,res) {
     
+    res.setHeader('Content-Type', 'application/json')
+
     validateReqBody(req)
     
     const loterryResults = await getLoterryResults(globalConst.DATA_GOV_URL) //TODOX rename resultsJson
 
-    getScoreData(req.body.drawDate, req.body.lotteryNumbers, loterryResults)
+    const ticketsWithScoreData = getScoreData(req.body.drawDate, req.body.lotteryNumbers, loterryResults)
 
-
+    res.json(ticketsWithScoreData)
 })
 
 // Fall Through Route

@@ -143,7 +143,7 @@ const getScoreData = (drawDate, lotteryNumbers, lotteryResults) => {
 
     lotteryNumbers = _checkNumbersMatch(lotteryNumbers, luckyDraw)
 
-    console.log(lotteryNumbers)
+    return lotteryNumbers
 
 }
 
