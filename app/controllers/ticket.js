@@ -1,12 +1,5 @@
 const moment = require('moment')
 
-const validateReqBody = (req) => {
-
-    _validateDrawDate(req.body.drawDate)
-
-    _validateLoterryNumbers(req.body.lotteryNumbers)
-}
-
 const _validateDrawDate = (drawDate) => {
     if (moment(new Date(drawDate)).isValid() == false)
         throw new Error(400, 'Invalid date')
@@ -77,5 +70,23 @@ const _validateLoterryNumbers = (lotteryNumbers) => {
 
 }
 
+const validateReqBody = (req) => {
 
-module.exports = { validateReqBody }
+    _validateDrawDate(req.body.drawDate)
+
+    _validateLoterryNumbers(req.body.lotteryNumbers)
+}
+
+
+const _getDrawByDate = (drawDate, lotteryResults) => {
+    const luckyDraw = lotteryResults.filter(draw => moment(drawDate).isSame(draw.draw_date, 'day'))
+    return luckyDraw
+}
+
+const calculateScore = (reqBody, lotteryResults) => {
+
+    const luckyDraw = _getDrawByDate(reqBody.drawDate, lotteryResults) 
+
+}
+
+module.exports = { validateReqBody , calculateScore}
