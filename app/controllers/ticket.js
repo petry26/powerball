@@ -52,19 +52,19 @@ const _validateNormalNumbers = (normalNumbers) => {
 }
 
 
-const _validateLoterryNumbers = (lotteryNumbers) => {
+const _validateLotteryNumbers = (lotteryNumbers) => {
 
     if(!Array.isArray(lotteryNumbers))
-        throw {status:422, message:'loterry numbers should be informed as an array'}
+        throw {status:422, message:'lottery numbers should be informed as an array'}
 
     if(lotteryNumbers.length == 0)
-        throw {status:422, message:'no loterry numbers were informed'}
+        throw {status:422, message:'no lottery numbers were informed'}
     
-    lotteryNumbers.forEach((loterryNumber)=>{
+    lotteryNumbers.forEach((lotteryNumber)=>{
 
-        _validatePowerNumber(loterryNumber.powerNumber)
+        _validatePowerNumber(lotteryNumber.powerNumber)
 
-        _validateNormalNumbers(loterryNumber.normalNumbers)
+        _validateNormalNumbers(lotteryNumber.normalNumbers)
 
     })
 
@@ -74,7 +74,7 @@ const validateReqBody = (req) => {
 
     _validateDrawDate(req.body.drawDate)
 
-    _validateLoterryNumbers(req.body.lotteryNumbers)
+    _validateLotteryNumbers(req.body.lotteryNumbers)
 }
 
 

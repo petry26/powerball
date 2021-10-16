@@ -16,12 +16,12 @@ router.post("/ticket", async function (req, res) {
   try {
     validateReqBody(req);
 
-    const loterryResults = await getLotteryResults(globalConst.DATA_GOV_URL)
+    const lotteryResults = await getLotteryResults(globalConst.DATA_GOV_URL)
 
     const ticketsWithScoreData = getScoreData(
       req.body.drawDate,
       req.body.lotteryNumbers,
-      loterryResults
+      lotteryResults
     )
 
     res.json(ticketsWithScoreData)

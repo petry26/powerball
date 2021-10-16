@@ -1,4 +1,4 @@
-const { getLoterryResults  } = require('../../../app/controllers/lotteryResultsAPI')
+const { getLotteryResults  } = require('../../../app/controllers/lotteryResultsAPI')
 
 //invalid url
 
