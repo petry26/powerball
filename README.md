@@ -66,7 +66,7 @@ You should see something like this:
 
 ```json
 {
-  "messsage": "Hello World"
+  "message": "Hello World"
 }
 ```
 

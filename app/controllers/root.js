@@ -1,6 +1,5 @@
-// Hello World on '/'
 function root(req, res) {
-  res.json({ message: 'Hello World1' }) //TODOX
+  res.json({ message: 'Up and running!' })
 }
 
 module.exports = {
