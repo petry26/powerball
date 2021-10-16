@@ -2,7 +2,7 @@ const express = require('express')
 
 const { root } = require('../controllers/root')
 const { notFound } = require('../controllers/notfound')
-const { validateReqBody, calculateScore } = require('../controllers/ticket') 
+const { validateReqBody, getScoreData } = require('../controllers/ticket') 
 const { getLoterryResults} = require('../controllers/resultsAPI')
 
 // Globals
@@ -19,7 +19,7 @@ router.post('/ticket', async function (req,res) {
     
     const loterryResults = await getLoterryResults(globalConst.DATA_GOV_URL) //TODOX rename resultsJson
 
-    calculateScore(req.body.drawDate, req.body.lotteryNumbers, loterryResults)
+    getScoreData(req.body.drawDate, req.body.lotteryNumbers, loterryResults)
 
 
 })

@@ -97,18 +97,47 @@ const _getAmountOfNormalNumberMatch = (normalNumbers, luckyDrawNumbers) => {
     return amount.length
 }
 
+const _calculateReward = (powerNumberMatch, normalNumbersMatch) => {
+
+    switch(normalNumbersMatch) {
+        case 0:
+            return powerNumberMatch ? 4 : 0  
+        case 1:
+            return powerNumberMatch ? 4 : 0  
+        case 2:
+            return powerNumberMatch ? 7 : 4  
+        case 3:
+            return powerNumberMatch ? 100 : 7  
+        case 4:
+            return powerNumberMatch ? 50000 : 100  
+        case 5:
+            return powerNumberMatch ? 'grand_prize' : 100000  
+        default:
+            return 0
+     }
+
+}
+
 const _checkNumbersMatch = (lotteryNumbers, luckyDraw) => {
 
     lotteryNumbers.forEach((lotteryNumber, index) => {
-        lotteryNumbers[index].powerNumberMatch = (lotteryNumber.powerNumber == luckyDraw.powerNumber)
+
+        const powerNumberMatch = (lotteryNumber.powerNumber == luckyDraw.powerNumber)
             
-        lotteryNumbers[index].normalNumberMatch = _getAmountOfNormalNumberMatch(lotteryNumber.normalNumbers, luckyDraw.normalNumbers)
+        const normalNumbersMatch = _getAmountOfNormalNumberMatch(lotteryNumber.normalNumbers, luckyDraw.normalNumbers)
+
+        lotteryNumbers[index].prizeData = {
+            luckyDraw: luckyDraw,
+            powerNumberMatch,
+            normalNumbersMatch,
+            reward: _calculateReward(powerNumberMatch, normalNumbersMatch)
+        }
     })
 
     return lotteryNumbers
 }
 
-const calculateScore = (drawDate, lotteryNumbers, lotteryResults) => {
+const getScoreData = (drawDate, lotteryNumbers, lotteryResults) => {
 
     const luckyDraw = _getDrawByDate(drawDate, lotteryResults) 
 
@@ -118,4 +147,4 @@ const calculateScore = (drawDate, lotteryNumbers, lotteryResults) => {
 
 }
 
-module.exports = { validateReqBody , calculateScore}
+module.exports = { validateReqBody, getScoreData }
