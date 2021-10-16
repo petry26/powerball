@@ -1,14 +1,4 @@
-const moment = require('moment')
-
-const _getDrawByDate = (drawDate, lotteryResults) => {
-    let luckyDraw = lotteryResults.filter(draw => moment(drawDate).isSame(draw.drawDate, 'day'))
-
-    if(!luckyDraw[0])
-        throw {status:200, message:'results for the especified draw are not available'}
-
-    return luckyDraw[0]
-}
-
+const { getDrawByDate } = require("../../services/lotteryResultsAPI")
 
 const _getAmountOfNormalNumberMatch = (normalNumbers, luckyDrawNumbers) => {
 
@@ -59,9 +49,9 @@ const _checkNumbersMatch = (tickets, luckyDraw) => {
     return tickets
 }
 
-const getScoreData = (drawDate, tickets, lotteryResults) => {
+const getScoreData = async (drawDate, tickets) => {
 
-    const luckyDraw = _getDrawByDate(drawDate, lotteryResults) 
+    const luckyDraw = await getDrawByDate(drawDate) 
 
     tickets = _checkNumbersMatch(tickets, luckyDraw)
 

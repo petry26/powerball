@@ -1,4 +1,7 @@
 const axios = require('axios')
+const moment = require('moment')
+
+const globalConst = require("../utils/globalConst")
 
 const _getJsonFromAPI = async (url) => {
 
@@ -30,7 +33,7 @@ const _sanitizeResults = (lotteryResults) => {
     return lotteryResults
 }
 
-const getLotteryResults = async (url) =>  {
+const _getLotteryResults = async (url) =>  {
 
     //TODO: add cache
     let lotteryResults = await _getJsonFromAPI(url)
@@ -40,4 +43,18 @@ const getLotteryResults = async (url) =>  {
     return lotteryResults
 }
 
-module.exports = { getLotteryResults }
+
+const getDrawByDate = async (drawDate) => {
+
+    const lotteryResults = await _getLotteryResults(globalConst.LOTTERY_API_URL)
+
+    let luckyDraw = lotteryResults.filter(draw => moment(drawDate).isSame(draw.drawDate, 'day'))
+
+    if(!luckyDraw[0])
+        throw {status:200, message:'results for the especified draw are not available'}
+
+    return luckyDraw[0]
+}
+
+
+module.exports = { getDrawByDate }
