@@ -20,7 +20,7 @@ router.post("/ticket", async function (req, res) {
 
     const ticketsWithScoreData = getScoreData(
       req.body.drawDate,
-      req.body.lotteryNumbers,
+      req.body.tickets,
       lotteryResults
     )
 

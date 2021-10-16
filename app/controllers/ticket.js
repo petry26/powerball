@@ -52,19 +52,19 @@ const _validateNormalNumbers = (normalNumbers) => {
 }
 
 
-const _validateLotteryNumbers = (lotteryNumbers) => {
+const _validateTickets = (tickets) => {
 
-    if(!Array.isArray(lotteryNumbers))
-        throw {status:422, message:'lottery numbers should be informed as an array'}
+    if(!Array.isArray(tickets))
+        throw {status:422, message:'tickets should be informed as an array'}
 
-    if(lotteryNumbers.length == 0)
-        throw {status:422, message:'no lottery numbers were informed'}
+    if(tickets.length == 0)
+        throw {status:422, message:'no tickets were informed'}
     
-    lotteryNumbers.forEach((lotteryNumber)=>{
+        tickets.forEach((ticket)=>{
 
-        _validatePowerNumber(lotteryNumber.powerNumber)
+        _validatePowerNumber(ticket.powerNumber)
 
-        _validateNormalNumbers(lotteryNumber.normalNumbers)
+        _validateNormalNumbers(ticket.normalNumbers)
 
     })
 
@@ -74,7 +74,7 @@ const validateReqBody = (req) => {
 
     _validateDrawDate(req.body.drawDate)
 
-    _validateLotteryNumbers(req.body.lotteryNumbers)
+    _validateTickets(req.body.tickets)
 }
 
 
@@ -118,15 +118,15 @@ const _calculateReward = (powerNumberMatch, normalNumbersMatch) => {
 
 }
 
-const _checkNumbersMatch = (lotteryNumbers, luckyDraw) => {
+const _checkNumbersMatch = (tickets, luckyDraw) => {
 
-    lotteryNumbers.forEach((lotteryNumber, index) => {
+    tickets.forEach((lotteryNumber, index) => {
 
         const powerNumberMatch = (lotteryNumber.powerNumber == luckyDraw.powerNumber)
             
         const normalNumbersMatch = _getAmountOfNormalNumberMatch(lotteryNumber.normalNumbers, luckyDraw.normalNumbers)
 
-        lotteryNumbers[index].prizeData = {
+        tickets[index].prizeData = {
             luckyDraw: luckyDraw,
             powerNumberMatch,
             normalNumbersMatch,
@@ -134,16 +134,16 @@ const _checkNumbersMatch = (lotteryNumbers, luckyDraw) => {
         }
     })
 
-    return lotteryNumbers
+    return tickets
 }
 
-const getScoreData = (drawDate, lotteryNumbers, lotteryResults) => {
+const getScoreData = (drawDate, tickets, lotteryResults) => {
 
     const luckyDraw = _getDrawByDate(drawDate, lotteryResults) 
 
-    lotteryNumbers = _checkNumbersMatch(lotteryNumbers, luckyDraw)
+    tickets = _checkNumbersMatch(tickets, luckyDraw)
 
-    return {drawDate, lotteryNumbers}
+    return {drawDate, tickets}
 
 }
 
