@@ -21,7 +21,7 @@ router.post("/ticket", async function (req, res) {
     res.json(ticketsWithScoreData)
   } catch (error) {
     console.log(error)
-    res.status(error.status ? error.status : 500).send(error.message ? error.message : 'unknown error')
+    res.status(error.status ? error.status : 500).send(error.message ? error.message : 'unknown error - please contact support: 9-9999-9999 or support@company.com')
   }
 });
 

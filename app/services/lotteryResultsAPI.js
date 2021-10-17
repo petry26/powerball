@@ -51,7 +51,7 @@ const getDrawByDate = async (drawDate) => {
     let luckyDraw = lotteryResults.filter(draw => moment(drawDate).isSame(draw.drawDate, 'day'))
 
     if(!luckyDraw[0])
-        throw {status:200, message:'results for the especified draw are not available'}
+        throw {status:200, message:'lottery results for the specified draw are not available'}
 
     return luckyDraw[0]
 }

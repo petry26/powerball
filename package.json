@@ -15,7 +15,8 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint .",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "jest": {
     "verbose": true
