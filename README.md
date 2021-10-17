@@ -1,3 +1,58 @@
+# Expected Request
+`post /ticket`
+`Content-Type: application/json`
+### Body
+
+```javascript
+{
+    "drawDate":"2021-10-13",
+    "tickets": [
+        {
+            "powerNumber": 15,
+            "normalNumbers": [23, 30, 48 , 55, 35]
+        }
+    ]
+}
+```
+# Expected Response
+### Body
+
+```javascript
+{
+    "drawDate": "2021-10-13",
+    "tickets": [
+        {
+            "powerNumber": 15,
+            "normalNumbers": [
+                23,
+                30,
+                48,
+                55,
+                35
+            ],
+            "prizeData": {
+                "luckyDraw": {
+                    "drawDate": "2021-10-13T00:00:00.000",
+                    "powerNumber": 15,
+                    "normalNumbers": [
+                        23,
+                        29,
+                        47,
+                        59,
+                        60
+                    ]
+                },
+                "powerNumberMatch": true,
+                "normalNumbersMatch": 1,
+                "reward": 4
+            }
+        }
+    ]
+}
+
+
+```
+
 # Interview Exercise
 
 Your goal is to extend the functionality of this Node.js service.
