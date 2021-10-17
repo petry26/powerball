@@ -21,6 +21,8 @@ const _sanitizeResults = (lotteryResults) => {
     //TODO add scheme validation
     lotteryResults = lotteryResults.map(result => {
         let luckyNumbers = result.winning_numbers.split(' ')
+        
+        luckyNumbers = luckyNumbers.map(numberTxt => parseInt(numberTxt))
 
         let sanitizedData = {
             drawDate: result.draw_date,
