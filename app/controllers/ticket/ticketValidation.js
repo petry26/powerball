@@ -70,11 +70,12 @@ const _validateTickets = (tickets) => {
 
 }
 
-const validateReqBody = (req) => {
+const validateReqBody = async(reqBody) => {
 
-    _validateDrawDate(req.body.drawDate)
+    _validateDrawDate(reqBody.drawDate)
 
-    _validateTickets(req.body.tickets)
+    _validateTickets(reqBody.tickets)
+
 }
 
 module.exports = { validateReqBody }

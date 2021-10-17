@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/", root);
 router.post("/ticket", async function (req, res) {
   try {
-    validateReqBody(req)
+    await validateReqBody(req.body)
 
     const ticketsWithScoreData = await getScoreData(
       req.body.drawDate,
